@@ -3,6 +3,7 @@
 1. Где расположен файл с `some_fact` из второго пункта задания?
 
 Файл `group_vars/all/examp.yml`
+
 2. Какая команда нужна для запуска вашего `playbook` на окружении `test.yml`?
 ```
 ansible-playbook site.yml -i inventory/test.yml
@@ -17,7 +18,7 @@ ansible-vault encrypt group_vars/deb/examp.yml
 
 `ansible-vault decrypt <file>`, например:
 ```
-ansible-vault dencrypt group_vars/deb/examp.yml
+ansible-vault decrypt group_vars/deb/examp.yml
 ```
 5. Можно ли посмотреть содержимое зашифрованного файла без команды расшифровки файла? Если можно, то как?
 
