@@ -249,10 +249,173 @@ https://github.com/olkhovik/ansible-8.1
 ## Необязательная часть
 
 1. При помощи `ansible-vault` расшифруйте все зашифрованные файлы с переменными.
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-vault decrypt group_vars/deb/examp.yml
+Vault password:
+Decryption successful
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat group_vars/deb/examp.yml
+---
+  some_fact: "deb default fact"
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-vault decrypt group_vars/el/examp.yml
+Vault password:
+Decryption successful
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat group_vars/el/examp.yml
+---
+  some_fact: "el default fact"
+```
 2. Зашифруйте отдельное значение `PaSSw0rd` для переменной `some_fact` паролем `netology`. Добавьте полученное значение в `group_vars/all/exmp.yml`.
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-vault encrypt_string PaSSw0rd
+New Vault password:
+Confirm New Vault password:
+!vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36643735366465363738346630633237303061636662613163623262313163376237623939383333
+          6430346262653161656430353530626466616661633965300a626334353665303332303036383535
+          38303634323162303061356331336361653737646266626533323832616535373965633634306539
+          3261643865643638630a303630646631646165353662633064306531303833316638386162333230
+          3064
+Encryption successful
+```
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat group_vars/all/examp.yml
+---
+  some_fact: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36643735366465363738346630633237303061636662613163623262313163376237623939383333
+          6430346262653161656430353530626466616661633965300a626334353665303332303036383535
+          38303634323162303061356331336361653737646266626533323832616535373965633634306539
+          3261643865643638630a303630646631646165353662633064306531303833316638386162333230
+          3064
+```
 3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-playbook site.yml -i inventory/prod.yml --ask-vault-pass
+Vault password:
+
+PLAY [Print os facts] ***********************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+ok: [localhost]
+ok: [ubuntu]
+ok: [centos7]
+
+TASK [Print OS] *****************************************************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": "Ubuntu"
+}
+ok: [centos7] => {
+    "msg": "CentOS"
+}
+ok: [ubuntu] => {
+    "msg": "Ubuntu"
+}
+
+TASK [Print fact] ***************************************************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": "PaSSw0rd"
+}
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [ubuntu] => {
+    "msg": "deb default fact"
+}
+
+PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+centos7                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat inventory/prod.yml
+---
+...  
+  fed:
+    hosts:
+      fedora:
+        ansible_connection: docker
+```
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat site.yml
+---
+  - name: Print os facts
+    hosts: all
+    tasks:
+      ...
+      - name: Print custom var
+        debug:
+          msg: "{{ custom_var }}"
+        when:
+          - ansible_distribution == "Fedora"
+```
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ cat group_vars/fed/examp.yml
+---
+  custom_var: "Hi, Fedora!"
+```
+```
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-playbook site.yml -i inventory/prod.yml --ask-vault-pass
+Vault password:
+
+PLAY [Print os facts] ***********************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
+ok: [localhost]
+ok: [ubuntu]
+ok: [fedora]
+ok: [centos7]
+
+TASK [Print OS] *****************************************************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": "Ubuntu"
+}
+ok: [centos7] => {
+    "msg": "CentOS"
+}
+ok: [ubuntu] => {
+    "msg": "Ubuntu"
+}
+ok: [fedora] => {
+    "msg": "Fedora"
+}
+
+TASK [Print fact] ***************************************************************************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": "PaSSw0rd"
+}
+ok: [centos7] => {
+    "msg": "el default fact"
+}
+ok: [ubuntu] => {
+    "msg": "deb default fact"
+}
+ok: [fedora] => {
+    "msg": "PaSSw0rd"
+}
+
+TASK [Print custom var] *********************************************************************************************************************************************************************************************************************
+skipping: [centos7]
+skipping: [ubuntu]
+skipping: [localhost]
+ok: [fedora] => {
+    "msg": "Hi, Fedora!"
+}
+
+PLAY RECAP **********************************************************************************************************************************************************************************************************************************
+centos7                    : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+fedora                     : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+```
 5. Напишите скрипт на bash: автоматизируйте поднятие необходимых контейнеров, запуск ansible-playbook и остановку контейнеров.
+```
+#!/usr/local/env bash
+docker-compose up -d
+ansible-playbook site.yml -i inventory/prod.yml --vault-password-file vault_pass.txt
+docker-compose down
+```
 6. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
 
 

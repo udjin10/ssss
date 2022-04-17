@@ -8,3 +8,8 @@
       - name: Print fact
         debug:
           msg: "{{ some_fact }}"
+      - name: Print custom var
+        debug:
+          msg: "{{ custom_var }}"
+        when:
+          - ansible_distribution == "Fedora"

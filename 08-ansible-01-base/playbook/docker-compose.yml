@@ -9,3 +9,7 @@ services:
     image: pycontribs/ubuntu:latest
     container_name: ubuntu
     command: tail -F /var/log/syslog
+  fedora:
+    image: pycontribs/fedora:latest
+    container_name: fedora
+    command: tail -F /var/log/messages
