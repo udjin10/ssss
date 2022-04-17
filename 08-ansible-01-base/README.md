@@ -183,7 +183,9 @@ ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    s
 ```
 9. Посмотрите при помощи `ansible-doc` список плагинов для подключения. Выберите подходящий для работы на `control node`.
 ```
-не совсем понял, что нужно сделать
+dmitry@Lenovo-B50:~/netology/mnt/08-ansible-01-base/playbook$ ansible-doc -l -t connection
+...
+local                          execute on controller
 ```
 10. В `prod.yml` добавьте новую группу хостов с именем  `local`, в ней разместите localhost с необходимым типом подключения.
 ```
