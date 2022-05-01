@@ -73,3 +73,4 @@
         dest: /etc/profile.d/vector.sh
         mode: 0755
       tags: vector
+    
