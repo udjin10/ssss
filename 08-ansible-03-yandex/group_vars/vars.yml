@@ -1,9 +1,0 @@
----
-clickhouse_version: "22.3.3.44"
-clickhouse_packages:
-  - clickhouse-client
-  - clickhouse-server
-  - clickhouse-common-static
-vector_version: "0.21.1"
-vector_home: "/opt/vector/{{ vector_version }}"
-vector_url: https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-x86_64-unknown-linux-gnu.tar.gz
