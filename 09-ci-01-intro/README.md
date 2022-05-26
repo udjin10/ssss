@@ -29,7 +29,7 @@
 Workflow и Workflow schemes:
 ![](image/Workflows.png)
 
-![](image/Workflow schemes.png)
+![](image/Workflow_schemes.png)
 
 Создать задачу с типом bug, попытаться провести его по всему workflow до Done. Создать задачу с типом epic, к ней привязать несколько задач с типом task, провести их по всему workflow до Done. При проведении обеих задач по статусам использовать kanban. Вернуть задачи в статус Open.
 ![](image/Kanban-board_Columns.png)
@@ -39,5 +39,5 @@ Workflow и Workflow schemes:
 
 Если всё отработало в рамках ожидания - выгрузить схемы workflow для импорта в XML. Файлы с workflow приложить к решению задания.
 
-- [bug workflow XML](./files/bug netology.xml)
-- [default workflow XML](./files/default netology.xml)
+- [bug workflow XML](./files/bug_netology.xml)
+- [default workflow XML](./files/default_netology.xml)
