@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "09.01 Жизненный цикл ПО"
+# Домашняя работа к занятию 9.1 «Жизненный цикл ПО»
 
 ## Подготовка к выполнению
 1. Получить бесплатную [JIRA](https://www.atlassian.com/ru/software/jira/free)
@@ -15,6 +15,8 @@
 6. On test -> On fix, Done
 7. Done -> Closed, Open
 
+![](image/workflow_bug.png)
+
 Остальные задачи должны проходить по упрощённому workflow:
 1. Open -> On develop
 2. On develop -> Open, Done develop
@@ -22,15 +24,20 @@
 4. On test -> On develop, Done
 5. Done -> Closed, Open
 
+![](image/workflow_default.png)
+
+Workflow и Workflow schemes:
+![](image/Workflows.png)
+
+![](image/Workflow schemes.png)
+
 Создать задачу с типом bug, попытаться провести его по всему workflow до Done. Создать задачу с типом epic, к ней привязать несколько задач с типом task, провести их по всему workflow до Done. При проведении обеих задач по статусам использовать kanban. Вернуть задачи в статус Open.
+![](image/Kanban-board_Columns.png)
+
 Перейти в scrum, запланировать новый спринт, состоящий из задач эпика и одного бага, стартовать спринт, провести задачи до состояния Closed. Закрыть спринт.
+![](image/Scrum-board_Columns.png)
 
 Если всё отработало в рамках ожидания - выгрузить схемы workflow для импорта в XML. Файлы с workflow приложить к решению задания.
 
----
-
-### Как оформить ДЗ?
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----
+- [bug workflow XML](./files/bug netology.xml)
+- [default workflow XML](./files/default netology.xml)
