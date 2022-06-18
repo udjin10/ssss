@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "8.4 Работа с Roles"
+# Домашняя работа к занятию 8.4 «Работа с Roles»
 
 ## Подготовка к выполнению
 1. Создайте два пустых публичных репозитория в любом своём проекте: vector-role и lighthouse-role.
@@ -29,10 +29,8 @@
 10. Выложите playbook в репозиторий.
 11. В ответ приведите ссылки на оба репозитория с roles и одну ссылку на репозиторий с playbook.
 
----
+[lighthouse-role](https://github.com/olkhovik/lighthouse-role)
 
-### Как оформить ДЗ?
+[vector-role](https://github.com/olkhovik/vector-role)
 
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----
+[playbook](https://github.com/olkhovik/ansible-8.4)
