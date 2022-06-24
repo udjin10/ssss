@@ -134,9 +134,8 @@ dmitry@Lenovo-B50:~/netology/sandbox$ curl http://localhost:9092/kapacitor/v1/pi
 >    - Вверху вы можете увидеть запрос, аналогичный SQL-синтаксису. 
 >    Поэкспериментируйте с запросом, попробуйте изменить группировку и интервал наблюдений.
 
-#### Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске (disk->host->telegraf_container_id) из веб-интерфейса.
-данные по диску не подгрузились, поэтому привожу пример по CPU (cpu->host->telegraf_container_id):
-![](media/chronograf_cpu.png)
+#### Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске (disk->host->telegraf_container_id) из веб-интерфейса:
+![](media/chronograf_disk.png)
 
 ### 5. Изучите список [telegraf inputs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs). Добавьте в конфигурацию telegraf следующий плагин - [docker](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker):
 >```
