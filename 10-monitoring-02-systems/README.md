@@ -125,17 +125,18 @@ dmitry@Lenovo-B50:~/netology/sandbox$ curl http://localhost:9092/kapacitor/v1/pi
 #### А также скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`):
 ![](media/chronograf.png)
 
-4. Перейдите в веб-интерфейс Chronograf (`http://localhost:8888`) и откройте вкладку `Data explorer`.
+### 4. Перейдите в веб-интерфейс Chronograf (`http://localhost:8888`) и откройте вкладку `Data explorer`:
 
-    - Нажмите на кнопку `Add a query`
-    - Изучите вывод интерфейса и выберите БД `telegraf.autogen`
-    - В `measurments` выберите mem->host->telegraf_container_id , а в `fields` выберите used_percent. 
-    Внизу появится график утилизации оперативной памяти в контейнере telegraf.
-    - Вверху вы можете увидеть запрос, аналогичный SQL-синтаксису. 
-    Поэкспериментируйте с запросом, попробуйте изменить группировку и интервал наблюдений.
+>    - Нажмите на кнопку `Add a query`
+>    - Изучите вывод интерфейса и выберите БД `telegraf.autogen`
+>    - В `measurments` выберите mem->host->telegraf_container_id , а в `fields` выберите used_percent. 
+>    Внизу появится график утилизации оперативной памяти в контейнере telegraf.
+>    - Вверху вы можете увидеть запрос, аналогичный SQL-синтаксису. 
+>    Поэкспериментируйте с запросом, попробуйте изменить группировку и интервал наблюдений.
 
-Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске 
-(disk->host->telegraf_container_id) из веб-интерфейса.
+#### Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске (disk->host->telegraf_container_id) из веб-интерфейса.
+данные по диску не подгрузились, поэтому привожу пример по CPU (cpu->host->telegraf_container_id):
+![](media/chronograf_cpu.png)
 
 5. Изучите список [telegraf inputs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs). 
 Добавьте в конфигурацию telegraf следующий плагин - [docker](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker):
