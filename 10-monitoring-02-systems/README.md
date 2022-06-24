@@ -43,9 +43,9 @@
 
 #### В виде решения на это упражнение приведите выводы команд с вашего компьютера (виртуальной машины):
 
->    - curl http://localhost:8086/ping
->    - curl http://localhost:8888
->    - curl http://localhost:9092/kapacitor/v1/ping
+>     - curl http://localhost:8086/ping
+>     - curl http://localhost:8888
+>     - curl http://localhost:9092/kapacitor/v1/ping
 > 
 >P.S.: если при запуске некоторые контейнеры будут падать с ошибкой - проставьте им режим `Z`, например
 `./data:/var/lib:Z`
