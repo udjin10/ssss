@@ -1,0 +1,12 @@
+[Unit]
+  Description=Vector service
+  After=network.target
+  Requires=network-online.target
+ 
+[Service]
+  ExecStart=/usr/bin/vector --config-yaml {{ vector_config_dir }}/vector.yaml --watch-config
+  KillMode=process
+  Restart=on-failure
+ 
+[Install]
+  WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+---
+vector_version: "0.21.2-1"
+vector_rpm: "https://packages.timber.io/vector/0.21.2/vector-{{ vector_version }}.x86_64.rpm"
+vector_deb: "https://packages.timber.io/vector/0.21.2/vector_{{ vector_version }}_amd64.deb"

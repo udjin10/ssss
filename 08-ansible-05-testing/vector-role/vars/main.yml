@@ -1,0 +1,21 @@
+---
+vector_config_dir: "/etc/vector"
+vector_config:
+  sources:
+    log:
+      type: file
+      ignore_older_secs: 600
+      include:
+        - /media/logs/*.log
+      read_from: beginning
+  sinks:
+    to_clickhouse:
+      type: clickhouse
+      inputs:
+        - log
+      database: logs
+      endpoint: http://51.250.107.212:8123
+      table: syslog
+      #compression: gzip
+      healthcheck: false
+      skip_unknown_fields: true

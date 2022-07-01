@@ -1,0 +1,80 @@
+---
+- name: Get Vector distrib
+  ansible.builtin.get_url:
+    url: "{{ vector_rpm }}"
+    dest: "./vector-{{ vector_version }}.rpm"
+  when: ansible_os_family == "RedHat"
+  tags: vector
+- name: Get Vector distrib
+  ansible.builtin.get_url:
+    url: "{{ vector_deb }}"
+    dest: "./vector-{{ vector_version }}.deb"
+  when: ansible_pkg_mgr == "apt"
+  tags: vector
+- name: Install vector packages rpm
+  become: true
+  ansible.builtin.yum:
+    name: vector-{{ vector_version }}.rpm
+    disable_gpg_check: True
+  when: ansible_os_family == "RedHat"
+  tags: vector
+- name: Install vector packages deb
+  become: true
+  ansible.builtin.apt:
+    deb: vector-{{ vector_version }}.deb
+  when: ansible_pkg_mgr == "apt"
+  tags: vector
+- name: Copy config
+  become: true
+  template:
+    src: templates/vector.yaml.j2
+    dest: "{{ vector_config_dir }}/vector.yaml"
+    validate: vector validate --no-environment --config-yaml %s
+  tags: vector
+- name: vector service
+  become: true
+  ansible.builtin.template:
+    src: vector.service.j2
+    dest: /etc/systemd/system/vector.service
+- name: start vector
+  become: true
+  ansible.builtin.systemd:
+    name: vector
+    state: started
+    enabled: yes
+    daemon_reload: true
+
+- name: Make log dir
+  ansible.builtin.file:
+    path: /media/logs
+    state: directory
+    mode: '0755'
+- name: Check if file exists
+  stat:
+    path: /media/logs/rsyslog.log
+  register: tmp_file
+- name: Make log file
+  ansible.builtin.file:
+    path: /media/logs/rsyslog.log
+    state: touch
+    mode: '0755'
+  when: tmp_file.stat.exists == false
+# - name: Install rsyslog
+#   become: true
+#   ansible.builtin.yum:
+#     name: rsyslog
+#   notify: start_rsyslog
+#   when: ansible_os_family == "RedHat"
+# - name: Install rsyslog apt
+#   become: true
+#   apt:
+#     name: rsyslog
+#     state: present
+#   notify: start_rsyslog
+#   when: ansible_pkg_mgr == "apt"
+- name: copy rsyslog config
+  become: true
+  copy:
+    src: files/rsyslog.conf
+    dest: /etc/rsyslog.conf
+  notify: start_rsyslog

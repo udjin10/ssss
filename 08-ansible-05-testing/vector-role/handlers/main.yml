@@ -1,0 +1,7 @@
+---
+- name: start_rsyslog
+  become: true
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted
+    enabled: yes
