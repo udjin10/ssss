@@ -35,5 +35,7 @@ platforms:
       container: docker
 provisioner:
   name: ansible
+  playbooks:
+    verify: ../resources/verify.yml
 verifier:
   name: ansible
