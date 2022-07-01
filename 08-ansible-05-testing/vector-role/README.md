@@ -13,10 +13,14 @@ Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml` and `vars/main.yml`):
 
-vector_version - версия Vector
-vector_rpm - Файл установки Vector
-vector_config_dir - Папка конфигураций Vector
-vector_config - Конфигурация Vector
+`vector_version` - версия Vector
+
+`vector_rpm` - Файл установки Vector
+
+`vector_config_dir` - Папка конфигураций Vector
+
+`vector_config` - Конфигурация Vector
+
 
 * The version vector to install.
 ```yml
