@@ -2,21 +2,63 @@
 
 ## Задание повышенной сложности
 
-**В части задания 1** не используйте директорию [help](./help) для сборки проекта, самостоятельно разверните grafana, где в 
-роли источника данных будет выступать prometheus, а сборщиком данных node-exporter:
-- grafana
-- prometheus-server
-- prometheus node-exporter
+#### В решении к домашнему заданию приведите также все конфигурации/скрипты/манифесты, которые вы использовали в процессе решения задания:
 
-За дополнительными материалами, вы можете обратиться в официальную документацию grafana и prometheus.
+<details><summary>.</summary>
 
-В решении к домашнему заданию приведите также все конфигурации/скрипты/манифесты, которые вы 
+>**В части задания 1** не используйте директорию [help](./help) для сборки проекта, самостоятельно разверните grafana, где в 
+>роли источника данных будет выступать prometheus, а сборщиком данных node-exporter:
+>- grafana
+>- prometheus-server
+>- prometheus node-exporter
+>
+>За дополнительными материалами, вы можете обратиться в официальную документацию grafana и prometheus.
+>
+>В решении к домашнему заданию приведите также все конфигурации/скрипты/манифесты, которые вы 
 использовали в процессе решения задания.
+</details>
 
-**В части задания 3** вы должны самостоятельно завести удобный для вас канал нотификации, например Telegram или Email
-и отправить туда тестовые события.
+[docker-compose](mystack/docker-compose.yml)
 
-В решении приведите скриншоты тестовых событий из каналов нотификаций.
+[Prometheus, конфиг prometheus.yml](mystack/prometheus.yml)
+
+[Grafana, конфиг DataSource](mystack/prometheus_datasource.yml)
+
+[Grafana, конфиг Dashboard](mystack/prometheus_dashboard_1860.yml)
+
+[Grafana, Dashboard в json](mystack/prometheus_dashboard_1860.json)
+
+#### Источники, которые помогли при выполнении задания:
+<details><summary>.</summary>
+
+`docker-compose`:
+- [hub.docker.com, параметры для контейнера `prometheus`, как подключить `volume` для данных](https://hub.docker.com/r/prom/prometheus)
+- [prometheus.io, настройка `node exporter`](https://prometheus.io/docs/guides/node-exporter/)
+- [github.com, параметры контейнера `node exporter`](https://github.com/prometheus/node_exporter)
+- [grafana.com, параметры контейнера `grafana`, как подключить `volume` для данных](https://grafana.com/docs/grafana/latest/administration/configure-docker/)
+
+`Grafana`:
+- [community.grafana.com, пример конфига DataSource prometheus](https://community.grafana.com/t/solved-datasource-provisioning-prometheus/6300/9)
+- [grafana.com, документация как добавить Dashboard](https://grafana.com/tutorials/provision-dashboards-and-data-sources/)
+- [medium.com, статья по связке grafana + prometheus](https://medium.com/56kcloud/provisioning-grafana-data-sources-and-dashboards-auto-magically-e27155d20652)
+- [grafana.com, Dashboard  для данных из node_exporter](https://grafana.com/grafana/dashboards/1860)
+
+Нотификации в Telegram:
+- [youtube.com, видео с примером настройки нотификации через бота в Telegram](https://youtu.be/oNYLO11Pgv8)
+</details>
+
+#### скриншоты тестовых событий из каналов нотификаций:
+
+<details><summary>.</summary>
+
+>**В части задания 3** вы должны самостоятельно завести удобный для вас канал нотификации, например Telegram или Email
+>и отправить туда тестовые события.
+>
+>В решении приведите скриншоты тестовых событий из каналов нотификаций.
+</details>
+
+![](media/Alerts_1.png)
+![](media/Alerts_2.png)
 
 ## Обязательные задания
 

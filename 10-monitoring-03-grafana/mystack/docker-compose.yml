@@ -1,0 +1,51 @@
+version: '3.6'
+
+networks:
+  monitoring:
+    driver: bridge
+volumes:
+  prometheus_data:
+  grafana_data:
+  # grafana_config:  
+
+services:
+  nodeexporter:
+    image: prom/node-exporter
+    container_name: nodeexporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    expose:
+      - 9100
+    # ports:
+    #   - "9100:9100"
+    volumes:
+      - '/:/host:ro,rslave'
+    networks:
+      - monitoring
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    expose:
+      - "9090"
+    # ports:
+    #   - "9090:9090"
+    networks:
+      - monitoring
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    expose:
+      - 3000
+    ports:
+      - "3001:3000"
+    networks:
+      - monitoring
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./prometheus_datasource.yml:/etc/grafana/provisioning/datasources/prometheus_datasource.yml
+      - ./prometheus_dashboard_1860.yml:/etc/grafana/provisioning/dashboards/prometheus_dashboard_1860.yml
+      - ./prometheus_dashboard_1860.json:/etc/grafana/provisioning/dashboards/prometheus_dashboard_1860.json
